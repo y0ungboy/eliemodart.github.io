@@ -3,171 +3,164 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Elie Modart — CV & Portfolio</title>
-  <meta name="description" content="Le site personnel d'Elie Modart : profil, projets, compétences et contact. CV téléchargeable." />
-  <meta property="og:title" content="Elie Modart — CV & Portfolio" />
-  <meta property="og:description" content="Profil, projets, compétences et contact. CV téléchargeable." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://eliemodart.github.io" />
+  <title>Elie Modart — CV</title>
+  <meta name="description" content="CV, projets et contact — Elie Modart." />
   <meta name="color-scheme" content="light dark" />
   <link rel="icon" href="favicon.ico" />
-
   <style>
-    /* ——— Design tokens (sobre + captif) ——— */
     :root{
-      --bg: #0b0f14;         /* fond très sombre */
-      --panel: #0f141b;      /* cartes/nav */
-      --line: #1b2430;       /* traits discrets */
-      --text: #e6edf3;       /* texte principal */
-      --muted: #9aa7b5;      /* texte secondaire */
-      --acc: #68e1fd;        /* accent doux (cyan froid) */
-      --acc-weak: #2a3f52;   /* hover/focus */
-      --ring: 0 0 0 2px var(--acc-weak);
+      --bg:#0b0b0c;
+      --text:#eaeaec;
+      --muted:#9a9aa3;
+      --line:#1a1a1d;
+      --gold:#d4af37;
+      --gold-weak:#3a3218;
+      --radius:14px;
+      --maxw:760px;
     }
     @media (prefers-color-scheme: light){
       :root{
-        --bg: #f8fafc;
-        --panel: #ffffff;
-        --line: #e5e7eb;
-        --text: #0f172a;
-        --muted: #475569;
-        --acc: #2563eb;      /* accent bleu en clair */
-        --acc-weak: #c7d2fe;
+        --bg:#fcfcfd; --text:#0e0f12; --muted:#5a5b63; --line:#e9eaee; --gold:#b9901f; --gold-weak:#f2e6c1;
       }
     }
 
-    /* ——— Reset minimal ——— */
     *,*::before,*::after{box-sizing:border-box}
     html,body{height:100%}
-    body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;-webkit-font-smoothing:antialiased}
-    a{color:inherit;text-underline-offset:3px}
-    img{max-width:100%;display:block}
-    :focus-visible{outline:var(--ring)}
+    body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 ui-sans-serif, system-ui, -apple-system, Segoe UI, Inter, Roboto, Arial, sans-serif;-webkit-font-smoothing:antialiased}
+    a{color:inherit;text-decoration:none}
+    :focus-visible{outline:2px solid var(--gold-weak);outline-offset:2px}
 
-    /* ——— Layout ——— */
-    .wrap{max-width:1024px;margin:0 auto;padding:24px}
-    .section{padding:56px 0}
+    .wrap{max-width:var(--maxw);margin:0 auto;padding:20px}
+    .section{padding:56px 0;border-top:1px solid var(--line)}
 
-    /* ——— Nav ——— */
-    .nav{position:sticky;top:0;backdrop-filter:saturate(160%) blur(8px);background:color-mix(in oklab, var(--bg) 90%, transparent);border-bottom:1px solid var(--line);z-index:20}
-    .nav-inner{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px 0}
-    .brand{font-weight:700;letter-spacing:.2px}
-    .menu{display:flex;gap:8px;flex-wrap:wrap}
-    .chip{padding:8px 12px;border-radius:999px;border:1px solid var(--line);background:linear-gradient(180deg,var(--panel),color-mix(in oklab, var(--panel) 85%, transparent));}
-    .chip:hover{border-color:var(--acc-weak)}
-    .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:linear-gradient(180deg,var(--panel),color-mix(in oklab, var(--panel) 85%, transparent));font-weight:600}
-    .btn:hover{border-color:var(--acc-weak);transform:translateY(-1px)}
+    .nav{position:sticky;top:0;background:color-mix(in oklab, var(--bg) 92%, transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);z-index:10}
+    .nav-in{display:flex;align-items:center;justify-content:space-between;padding:10px 0}
+    .brand{
+      font-weight:700;
+      letter-spacing:.2px;
+      color:var(--gold);
+      transition:text-shadow 0.4s ease, color 0.4s ease;
+      cursor:pointer;
+    }
+    .brand:hover{
+      color:#ffd700; /* or plus lumineux */
+      text-shadow:0 0 10px rgba(212,175,55,0.8),
+                 0 0 20px rgba(212,175,55,0.6),
+                 0 0 40px rgba(212,175,55,0.4);
+    }
 
-    /* ——— Hero ——— */
-    .hero{display:grid;grid-template-columns:1.15fr .85fr;gap:28px;align-items:center}
-    .card{background:linear-gradient(180deg,var(--panel),color-mix(in oklab, var(--panel) 85%, transparent));border:1px solid var(--line);border-radius:20px;padding:24px}
-    h1{font-size:40px;line-height:1.1;margin:0 0 12px}
-    h2{font-size:22px;margin:0 0 10px}
-    p.lead{color:var(--muted);margin:0}
-    .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
-    .tag{padding:6px 10px;border:1px solid var(--line);border-radius:999px;color:color-mix(in oklab, var(--text) 85%, transparent)}
-    .avatar{width:100%;aspect-ratio:1/1;border-radius:16px;object-fit:cover;border:1px solid var(--line)}
+    .menu{display:flex;gap:16px}
+    .menu a{opacity:.9;transition:all 0.25s ease-in-out}
+    .menu a:hover{opacity:1}
 
-    /* ——— Projets ——— */
-    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-    .proj{transition:transform .15s ease, border-color .2s ease}
-    .proj:hover{transform:translateY(-2px);border-color:var(--acc-weak)}
+    .hero{padding:84px 0 48px;text-align:center}
+    h1{margin:0 0 10px;font-size:44px;letter-spacing:.2px}
+    .lead{color:var(--muted);max-width:620px;margin:0 auto}
+    .actions{display:flex;gap:10px;justify-content:center;margin-top:18px;flex-wrap:wrap}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;border:1px solid var(--line);transition:transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease}
+    .btn:hover{transform:scale(1.03);box-shadow:0 6px 18px rgba(0,0,0,0.25);border-color:var(--gold)}
+    .btn-gold{border-color:color-mix(in oklab, var(--gold) 35%, var(--line));color:var(--gold)}
 
-    /* ——— Footer ——— */
+    h2{margin:0 0 12px;font-size:20px;letter-spacing:.2px}
+    .list{display:grid;gap:10px}
+    .item{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border:1px solid var(--line);border-radius:var(--radius);transition:transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease}
+    .item:hover{transform:scale(1.03);box-shadow:0 6px 18px rgba(0,0,0,0.25);border-color:var(--gold)}
+    .item small{color:var(--muted)}
+
     .footer{padding:36px 0;color:var(--muted);text-align:center;border-top:1px solid var(--line);margin-top:40px}
 
-    @media (max-width:900px){
-      .hero{grid-template-columns:1fr}
-      .grid{grid-template-columns:1fr}
-      h1{font-size:34px}
-    }
+    .hidden{opacity:0;transform:translateY(30px);transition:opacity 0.6s ease, transform 0.6s ease}
+    .visible{opacity:1;transform:translateY(0)}
+
+    @media (max-width:700px){h1{font-size:36px}}
   </style>
 </head>
 <body>
   <header class="nav">
-    <div class="wrap nav-inner">
-      <div class="brand">eliemodart</div>
+    <div class="wrap nav-in">
+      <div class="brand">Elie Modart</div>
       <nav class="menu" aria-label="Navigation principale">
-        <a class="chip" href="#about">À propos</a>
-        <a class="chip" href="#projects">Projets</a>
-        <a class="chip" href="#skills">Compétences</a>
-        <a class="chip" href="#contact">Contact</a>
-        <a class="btn" href="cv/Eli_Modart_CV.pdf" download>📄 CV</a>
+        <a href="#about">À propos</a>
+        <a href="#projects">Projets</a>
+        <a href="#skills">Compétences</a>
+        <a href="#contact">Contact</a>
+        <a class="btn btn-gold" href="cv/Eli_Modart_CV.pdf" download>CV</a>
       </nav>
     </div>
   </header>
 
   <main class="wrap">
-    <section class="section hero" id="top">
-      <div class="card">
-        <h1>Salut, moi c’est <span style="color:var(--acc)">Elie Modart</span></h1>
-        <p class="lead">Je conçois et réalise <strong>… (ton domaine)</strong>. Une page claire et directe pour découvrir mon profil, mes projets et me contacter.</p>
-        <div style="display:flex;gap:12px;margin-top:16px;flex-wrap:wrap">
-          <a class="btn" href="#projects">Voir mes projets</a>
-          <a class="btn" href="cv/Eli_Modart_CV.pdf" download>Télécharger mon CV</a>
-        </div>
-        <div class="tags">
-          <span class="tag">Design</span>
-          <span class="tag">Dév</span>
-          <span class="tag">+ ta spécialité</span>
-        </div>
-      </div>
-      <div>
-        <img class="avatar" src="assets/portrait.jpg" alt="Portrait d'Elie Modart" />
+    <section class="hero" id="top">
+      <h1><span style="color:var(--gold)">Elie Modart</span></h1>
+      <p class="lead">Profil succinct et efficace : qui je suis, ce que je fais et comment me joindre. Une page claire, minimaliste, centrée sur l’essentiel.</p>
+      <div class="actions">
+        <a class="btn btn-gold" href="cv/Eli_Modart_CV.pdf" download>📄 Télécharger le CV</a>
+        <a class="btn" href="#contact">✉️ Me contacter</a>
       </div>
     </section>
 
-    <section id="about" class="section card" aria-labelledby="t-about">
+    <section id="about" class="section" aria-labelledby="t-about">
       <h2 id="t-about">À propos</h2>
-      <p class="lead">Bio courte (3–5 lignes) : parcours, ce qui te distingue, ton impact concret (résultats chiffrés si possible).</p>
+      <p class="lead">Écris ici 3–5 lignes sur ton parcours, ta proposition de valeur et 1 résultat concret (idéalement chiffré). Garde le ton simple et direct.</p>
     </section>
 
-    <section id="projects" class="section" aria-labelledby="t-projets">
-      <h2 id="t-projets" style="margin-bottom:12px">Projets</h2>
-      <div class="grid">
-        <a class="card proj" href="#" target="_blank" rel="noreferrer">
-          <h3 style="margin:0 0 6px">Projet A</h3>
-          <p class="lead">Résumé en une phrase. Résultat chiffré si possible.</p>
+    <section id="projects" class="section" aria-labelledby="t-proj">
+      <h2 id="t-proj">Projets récents</h2>
+      <div class="list">
+        <a class="item" href="#" target="_blank" rel="noreferrer">
+          <span><strong>Projet A</strong><br><small>Une ligne d’explication / impact</small></span>
+          <span aria-hidden="true">↗</span>
         </a>
-        <a class="card proj" href="#" target="_blank" rel="noreferrer">
-          <h3 style="margin:0 0 6px">Projet B</h3>
-          <p class="lead">Ce que tu as fait / outils / impact.</p>
+        <a class="item" href="#" target="_blank" rel="noreferrer">
+          <span><strong>Projet B</strong><br><small>Rôle, outil, résultat</small></span>
+          <span aria-hidden="true">↗</span>
         </a>
-        <a class="card proj" href="#" target="_blank" rel="noreferrer">
-          <h3 style="margin:0 0 6px">Projet C</h3>
-          <p class="lead">Points clés + lien.</p>
+        <a class="item" href="#" target="_blank" rel="noreferrer">
+          <span><strong>Projet C</strong><br><small>Points clés + lien</small></span>
+          <span aria-hidden="true">↗</span>
         </a>
       </div>
     </section>
 
-    <section id="skills" class="section card" aria-labelledby="t-skills">
-      <h2 id="t-skills">Compétences</h2>
-      <ul style="margin:8px 0 0 18px">
-        <li><strong>Technique :</strong> …</li>
-        <li><strong>Outils :</strong> …</li>
-        <li><strong>Langues :</strong> …</li>
-      </ul>
+    <section id="skills" class="section" aria-labelledby="t-skill">
+      <h2 id="t-skill">Compétences</h2>
+      <div class="list">
+        <div class="item"><span><strong>Technique</strong></span><small>…</small></div>
+        <div class="item"><span><strong>Outils</strong></span><small>…</small></div>
+        <div class="item"><span><strong>Langues</strong></span><small>…</small></div>
+      </div>
     </section>
 
-    <section id="contact" class="section card" aria-labelledby="t-contact">
+    <section id="contact" class="section" aria-labelledby="t-contact">
       <h2 id="t-contact">Contact</h2>
-      <p class="lead">📧 <a href="mailto:contact@eliemodart.fr">contact@eliemodart.fr</a> &nbsp;•&nbsp; 🔗 <a href="https://www.linkedin.com/in/TON-USERNAME" target="_blank" rel="noreferrer">LinkedIn</a> &nbsp;•&nbsp; 💼 <a href="#" target="_blank" rel="noreferrer">Autre lien</a></p>
-      <p style="margin-top:8px;color:var(--muted);font-size:14px">Basé à … • Ouvert aux opportunités</p>
+      <div class="list">
+        <div class="item"><span>📧 Email</span><a href="mailto:contact@eliemodart.fr">contact@eliemodart.fr</a></div>
+        <div class="item"><span>🔗 LinkedIn</span><a href="https://www.linkedin.com/in/TON-USERNAME" target="_blank" rel="noreferrer">/in/TON-USERNAME</a></div>
+        <div class="item"><span>💼 Autre lien</span><a href="#" target="_blank" rel="noreferrer">portfolio / github</a></div>
+      </div>
     </section>
 
-    <footer class="footer">© <span id="y"></span> Elie Modart • Tous droits réservés</footer>
+    <footer class="footer">© <span id="y"></span> Elie Modart</footer>
   </main>
 
   <script>
-    // Année dynamique
     document.getElementById('y').textContent = new Date().getFullYear();
-
-    // Défilement doux (pour navigateurs anciens)
     document.querySelectorAll('a[href^="#"]').forEach(a=>{
-      a.addEventListener('click',e=>{
-        const id=a.getAttribute('href');
-        if(id.length>1){ e.preventDefault(); document.querySelector(id)?.scrollIntoView({behavior:'smooth'}); }
+      a.addEventListener('click',e=>{const id=a.getAttribute('href'); if(id.length>1){e.preventDefault(); document.querySelector(id)?.scrollIntoView({behavior:'smooth'});} });
+    });
+
+    const observer = new IntersectionObserver(entries=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
       });
+    },{threshold:0.1});
+
+    document.querySelectorAll('.section, .hero').forEach(sec=>{
+      sec.classList.add('hidden');
+      observer.observe(sec);
     });
   </script>
 </body>
