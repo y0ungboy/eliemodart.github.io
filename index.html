@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Elie Modart — CV & Portfolio</title>
+  <meta name="description" content="Le CV en une page d'Elie Modart : expériences, projets, compétences et contact." />
+  <meta property="og:title" content="Elie Modart — CV & Portfolio" />
+  <meta property="og:description" content="Mon CV en une page." />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="favicon.ico" />
+  <style>
+    :root{
+      --bg:#0f1115; --card:#151923; --muted:#8a93a6; --text:#e7ecf2; --acc:#5dd3ff; --ring:#2a3246;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;scroll-behavior:smooth}
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:1100px;margin:0 auto;padding:24px}
+    .nav{position:sticky;top:0;backdrop-filter:saturate(180%) blur(12px);background:rgba(15,17,21,.7);border-bottom:1px solid #1f2533;z-index:10}
+    .nav .inner{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0}
+    .brand{font-weight:700;letter-spacing:.3px}
+    .menu{display:flex;gap:14px;flex-wrap:wrap}
+    .menu a{padding:8px 12px;border-radius:999px;border:1px solid transparent}
+    .menu a:hover{border-color:var(--ring);background:#0f1420}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:12px;border:1px solid var(--ring);background:linear-gradient(180deg,#1a2030,#131827);font-weight:600}
+    .btn:hover{transform:translateY(-1px)}
+    .hero{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:center;padding:48px 0}
+    .card{background:linear-gradient(180deg,#131827,#0f141f);border:1px solid var(--ring);border-radius:20px;padding:24px}
+    h1{font-size:40px;line-height:1.1;margin:0 0 12px}
+    h2{font-size:24px;margin:0 0 16px}
+    p{color:var(--muted);line-height:1.6}
+    .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+    .tag{padding:6px 10px;border:1px solid var(--ring);border-radius:999px;font-size:14px;color:#c9d3e6}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .proj{transition:transform .15s ease}
+    .proj:hover{transform:translateY(-2px)}
+    .footer{padding:40px 0;color:#9aa6bf;text-align:center;border-top:1px solid #1f2533;margin-top:40px}
+    .avatar{width:100%;aspect-ratio:1/1;border-radius:16px;object-fit:cover;border:1px solid var(--ring)}
+    .section{padding:28px 0}
+    @media (max-width:900px){
+      .hero{grid-template-columns:1fr}
+      .grid{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="wrap inner">
+      <div class="brand">eliemodart</div>
+      <nav class="menu">
+        <a href="#about">À propos</a>
+        <a href="#projects">Projets</a>
+        <a href="#skills">Compétences</a>
+        <a href="#contact">Contact</a>
+        <a class="btn" href="cv/Eli_Modart_CV.pdf" download>📄 CV</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <div class="card">
+        <h1>Salut, moi c’est <span style="color:var(--acc)">Elie Modart</span></h1>
+        <p>
+          Je conçois et réalise <strong>… (ton domaine)</strong>. 
+          Ici tu trouveras l’essentiel : qui je suis, ce que je fais, et comment me contacter.
+        </p>
+        <div style="display:flex;gap:12px;margin-top:16px;">
+          <a class="btn" href="#projects">Voir mes projets</a>
+          <a class="btn" href="cv/Eli_Modart_CV.pdf" download>Télécharger mon CV</a>
+        </div>
+        <div class="tags">
+          <span class="tag">Design</span><span class="tag">Dev</span><span class="tag">+ ta spécialité</span>
+        </div>
+      </div>
+      <div>
+        <img class="avatar" src="assets/portrait.jpg" alt="Portrait d'Elie Modart" />
+      </div>
+    </section>
+
+    <section id="about" class="section card">
+      <h2>À propos</h2>
+      <p>Courte bio (3–5 lignes) : ton parcours, ce qui te distingue, ton impact.</p>
+    </section>
+
+    <section id="projects" class="section">
+      <h2 style="margin-bottom:12px;">Projets</h2>
+      <div class="grid">
+        <a class="card proj" href="#" target="_blank" rel="noreferrer">
+          <h3 style="margin:0 0 8px;">Projet A</h3>
+          <p>Résumé en une phrase. Résultat chiffré si possible.</p>
+        </a>
+        <a class="card proj" href="#" target="_blank" rel="noreferrer">
+          <h3 style="margin:0 0 8px;">Projet B</h3>
+          <p>Ce que tu as fait / tech / impact.</p>
+        </a>
+        <a class="card proj" href="#" target="_blank" rel="noreferrer">
+          <h3 style="margin:0 0 8px;">Projet C</h3>
+          <p>Points clés + lien.</p>
+        </a>
+      </div>
+    </section>
+
+    <section id="skills" class="section card">
+      <h2>Compétences</h2>
+      <ul>
+        <li><strong>Technique :</strong> …</li>
+        <li><strong>Outils :</strong> …</li>
+        <li><strong>Langues :</strong> …</li>
+      </ul>
+    </section>
+
+    <section id="contact" class="section card">
+      <h2>Contact</h2>
+      <p>📧 <a href="mailto:contact@eliemodart.fr">contact@eliemodart.fr</a> &nbsp;•&nbsp; 🔗 <a href="https://www.linkedin.com/in/TON-USERNAME" target="_blank" rel="noreferrer">LinkedIn</a> &nbsp;•&nbsp; 💼 <a href="#" target="_blank" rel="noreferrer">Autre lien</a></p>
+      <p style="margin-top:8px;font-size:14px;color:#9aa6bf">Basé à … • Ouvert aux opportunités</p>
+    </section>
+
+    <div class="footer">© <span id="y"></span> Elie Modart • Tous droits réservés</div>
+  </main>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
