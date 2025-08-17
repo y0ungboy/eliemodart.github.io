@@ -9,114 +9,128 @@
   <link rel="icon" href="favicon.ico" />
   <style>
     :root{
-      --bg:#0b0b0c;
-      --text:#eaeaec;
-      --muted:#9a9aa3;
-      --line:#1a1a1d;
-      --gold:#d4af37;
-      --gold-weak:#3a3218;
-      --radius:14px;
-      --maxw:760px;
+      --bg:#0b0b0c; --text:#eaeaec; --muted:#9a9aa3; --line:#1a1a1d;
+      --acc:#0d6efd;          /* Bleu pro */
+      --acc-weak:#bcd2ff;     /* Bleu clair pour survol/focus */
+      --radius:14px; --maxw:760px;
     }
     @media (prefers-color-scheme: light){
-      :root{
-        --bg:#fcfcfd; --text:#0e0f12; --muted:#5a5b63; --line:#e9eaee; --gold:#b9901f; --gold-weak:#f2e6c1;
-      }
+      :root{ --bg:#fcfcfd; --text:#0e0f12; --muted:#5a5b63; --line:#e9eaee; --acc:#0b5ed7; --acc-weak:#d6e4ff; }
     }
 
     *,*::before,*::after{box-sizing:border-box}
     html,body{height:100%}
-    body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 ui-sans-serif, system-ui, -apple-system, Segoe UI, Inter, Roboto, Arial, sans-serif;-webkit-font-smoothing:antialiased}
+    body{margin:0;background:var(--bg);color:var(--text);
+      font:16px/1.6 ui-sans-serif, system-ui, -apple-system, Segoe UI, Inter, Roboto, Arial, sans-serif;
+      -webkit-font-smoothing:antialiased}
     a{color:inherit;text-decoration:none}
-    :focus-visible{outline:2px solid var(--gold-weak);outline-offset:2px}
+    :focus-visible{outline:2px solid var(--acc-weak);outline-offset:2px}
 
     .wrap{max-width:var(--maxw);margin:0 auto;padding:20px}
     .section{padding:56px 0;border-top:1px solid var(--line)}
 
-    .nav{position:sticky;top:0;background:color-mix(in oklab, var(--bg) 92%, transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);z-index:10}
+    /* Barre de progression défilement (sobre) */
+    #progress{position:fixed;top:0;left:0;height:2px;width:0;background:var(--acc);
+      z-index:50;transition:width .1s linear}
+
+    /* Nav */
+    .nav{position:sticky;top:0;z-index:10;background:color-mix(in oklab, var(--bg) 92%, transparent);
+      backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
     .nav-in{display:flex;align-items:center;justify-content:space-between;padding:10px 0}
-    .brand{
-      font-weight:700;
-      letter-spacing:.2px;
-      color:var(--gold);
-      transition:text-shadow 0.4s ease, color 0.4s ease;
-      cursor:pointer;
-    }
-    .brand:hover{
-      color:#ffd700; /* or plus lumineux */
-      text-shadow:0 0 10px rgba(212,175,55,0.8),
-                 0 0 20px rgba(212,175,55,0.6),
-                 0 0 40px rgba(212,175,55,0.4);
-    }
+
+    /* Brand : soulignement progressif, sans lueur */
+    .brand{font-weight:700;letter-spacing:.2px;color:var(--acc);cursor:pointer;position:relative}
+    .brand::after{content:"";position:absolute;left:0;bottom:-2px;height:2px;width:0;background:currentColor;transition:width .25s ease}
+    .brand:hover::after{width:100%}
 
     .menu{display:flex;gap:16px}
-    .menu a{opacity:.9;transition:all 0.25s ease-in-out}
+    .menu a{opacity:.9;transition:opacity .2s ease}
     .menu a:hover{opacity:1}
 
-    .hero{padding:84px 0 48px;text-align:center}
+    .hero{padding:84px 0 48px;text-align:center;perspective:700px}
     h1{margin:0 0 10px;font-size:44px;letter-spacing:.2px}
     .lead{color:var(--muted);max-width:620px;margin:0 auto}
     .actions{display:flex;gap:10px;justify-content:center;margin-top:18px;flex-wrap:wrap}
-    .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;border:1px solid var(--line);transition:transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease}
-    .btn:hover{transform:scale(1.03);box-shadow:0 6px 18px rgba(0,0,0,0.25);border-color:var(--gold)}
-    .btn-gold{border-color:color-mix(in oklab, var(--gold) 35%, var(--line));color:var(--gold)}
+
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;border:1px solid var(--line);
+      transition:transform .16s ease, border-color .2s ease, box-shadow .2s ease}
+    .btn:hover{transform:translateY(-1px);box-shadow:0 6px 14px rgba(0,0,0,.18);border-color:var(--acc)}
+    .btn-acc{border-color:color-mix(in oklab, var(--acc) 40%, var(--line));color:var(--acc)}
 
     h2{margin:0 0 12px;font-size:20px;letter-spacing:.2px}
     .list{display:grid;gap:10px}
-    .item{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border:1px solid var(--line);border-radius:var(--radius);transition:transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease}
-    .item:hover{transform:scale(1.03);box-shadow:0 6px 18px rgba(0,0,0,0.25);border-color:var(--gold)}
+    .item{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border:1px solid var(--line);
+      border-radius:var(--radius);transition:transform .16s ease, border-color .2s ease, box-shadow .2s ease}
+    .item:hover{transform:translateY(-1px);box-shadow:0 6px 14px rgba(0,0,0,.18);border-color:var(--acc)}
     .item small{color:var(--muted)}
 
     .footer{padding:36px 0;color:var(--muted);text-align:center;border-top:1px solid var(--line);margin-top:40px}
 
-    .hidden{opacity:0;transform:translateY(30px);transition:opacity 0.6s ease, transform 0.6s ease}
+    /* Apparition douce */
+    .hidden{opacity:0;transform:translateY(18px);transition:opacity .5s ease, transform .5s ease}
     .visible{opacity:1;transform:translateY(0)}
 
+    /* Curseur personnalisé sobre (désactivé sur mobiles) */
+    body.use-cursor{cursor:none}
+    .c-dot,.c-ring{position:fixed;top:0;left:0;pointer-events:none;z-index:60;opacity:.95}
+    .c-dot{width:4px;height:4px;border-radius:50%;background:var(--acc);}
+    .c-ring{width:22px;height:22px;border:1px solid color-mix(in oklab,var(--acc) 55%, transparent);border-radius:50%;
+      transition:transform .15s ease, border-color .2s ease, opacity .2s ease}
+    .cursor-active .c-ring{transform:scale(1.15);border-color:var(--acc)}
+
+    @media (pointer:coarse){ .c-dot,.c-ring{display:none} body{cursor:auto} }
+    @media (prefers-reduced-motion: reduce){ .hidden{opacity:1;transform:none} .btn,.item{transition:none} }
     @media (max-width:700px){h1{font-size:36px}}
   </style>
 </head>
 <body>
+  <div id="progress"></div>
+
+  <!-- Curseur custom -->
+  <div class="c-dot" id="cDot"></div>
+  <div class="c-ring" id="cRing"></div>
+
   <header class="nav">
     <div class="wrap nav-in">
-      <div class="brand">Elie Modart</div>
+      <div class="brand" data-interactive>Elie Modart</div>
       <nav class="menu" aria-label="Navigation principale">
-        <a href="#about">À propos</a>
-        <a href="#projects">Projets</a>
-        <a href="#skills">Compétences</a>
-        <a href="#contact">Contact</a>
-        <a class="btn btn-gold" href="cv/Eli_Modart_CV.pdf" download>CV</a>
+        <a href="#about" data-interactive>À propos</a>
+        <a href="#projects" data-interactive>Projets</a>
+        <a href="#skills" data-interactive>Compétences</a>
+        <a href="#contact" data-interactive>Contact</a>
+        <a class="btn btn-acc" href="cv/Eli_Modart_CV.pdf" download data-interactive>CV</a>
       </nav>
     </div>
   </header>
 
   <main class="wrap">
     <section class="hero" id="top">
-      <h1><span style="color:var(--gold)">Elie Modart</span></h1>
+      <h1><span class="brand" id="heroName" data-interactive>Elie Modart</span></h1>
       <p class="lead">Profil succinct et efficace : qui je suis, ce que je fais et comment me joindre. Une page claire, minimaliste, centrée sur l’essentiel.</p>
       <div class="actions">
-        <a class="btn btn-gold" href="cv/Eli_Modart_CV.pdf" download>📄 Télécharger le CV</a>
-        <a class="btn" href="#contact">✉️ Me contacter</a>
+        <a class="btn btn-acc" href="cv/Eli_Modart_CV.pdf" download data-interactive>📄 Télécharger le CV</a>
+        <a class="btn" href="#contact" data-interactive>✉️ Me contacter</a>
       </div>
     </section>
 
     <section id="about" class="section" aria-labelledby="t-about">
       <h2 id="t-about">À propos</h2>
-      <p class="lead">Écris ici 3–5 lignes sur ton parcours, ta proposition de valeur et 1 résultat concret (idéalement chiffré). Garde le ton simple et direct.</p>
+      <p class="lead">Écris ici 3–5 lignes sur ton parcours, ta proposition de valeur et un résultat concret (idéalement chiffré). Garde le ton simple et direct.</p>
     </section>
 
     <section id="projects" class="section" aria-labelledby="t-proj">
       <h2 id="t-proj">Projets récents</h2>
       <div class="list">
-        <a class="item" href="#" target="_blank" rel="noreferrer">
+        <a class="item" href="#" target="_blank" rel="noreferrer" data-interactive>
           <span><strong>Projet A</strong><br><small>Une ligne d’explication / impact</small></span>
           <span aria-hidden="true">↗</span>
         </a>
-        <a class="item" href="#" target="_blank" rel="noreferrer">
-          <span><strong>Projet B</strong><br><small>Rôle, outil, résultat</small></span>
+        <a class="item" href="#" target="_blank" rel="noreferrer" data-interactive>
+          <span><strong>Projet B</strong></span>
           <span aria-hidden="true">↗</span>
         </a>
-        <a class="item" href="#" target="_blank" rel="noreferrer">
-          <span><strong>Projet C</strong><br><small>Points clés + lien</small></span>
+        <a class="item" href="#" target="_blank" rel="noreferrer" data-interactive>
+          <span><strong>Projet C</strong></span>
           <span aria-hidden="true">↗</span>
         </a>
       </div>
@@ -125,18 +139,18 @@
     <section id="skills" class="section" aria-labelledby="t-skill">
       <h2 id="t-skill">Compétences</h2>
       <div class="list">
-        <div class="item"><span><strong>Technique</strong></span><small>…</small></div>
-        <div class="item"><span><strong>Outils</strong></span><small>…</small></div>
-        <div class="item"><span><strong>Langues</strong></span><small>…</small></div>
+        <div class="item" data-interactive><span><strong>Technique</strong></span><small>…</small></div>
+        <div class="item" data-interactive><span><strong>Outils</strong></span><small>…</small></div>
+        <div class="item" data-interactive><span><strong>Langues</strong></span><small>…</small></div>
       </div>
     </section>
 
     <section id="contact" class="section" aria-labelledby="t-contact">
       <h2 id="t-contact">Contact</h2>
       <div class="list">
-        <div class="item"><span>📧 Email</span><a href="mailto:contact@eliemodart.fr">contact@eliemodart.fr</a></div>
-        <div class="item"><span>🔗 LinkedIn</span><a href="https://www.linkedin.com/in/TON-USERNAME" target="_blank" rel="noreferrer">/in/TON-USERNAME</a></div>
-        <div class="item"><span>💼 Autre lien</span><a href="#" target="_blank" rel="noreferrer">portfolio / github</a></div>
+        <div class="item" data-interactive><span>📧 Email</span><a href="mailto:contact@eliemodart.fr">contact@eliemodart.fr</a></div>
+        <div class="item" data-interactive><span>🔗 LinkedIn</span><a href="https://www.linkedin.com/in/TON-USERNAME" target="_blank" rel="noreferrer">/in/TON-USERNAME</a></div>
+        <div class="item" data-interactive><span>💼 Autre lien</span><a href="#" target="_blank" rel="noreferrer">portfolio / github</a></div>
       </div>
     </section>
 
@@ -144,24 +158,80 @@
   </main>
 
   <script>
+    // Année auto
     document.getElementById('y').textContent = new Date().getFullYear();
+
+    // Scroll doux ancres
     document.querySelectorAll('a[href^="#"]').forEach(a=>{
       a.addEventListener('click',e=>{const id=a.getAttribute('href'); if(id.length>1){e.preventDefault(); document.querySelector(id)?.scrollIntoView({behavior:'smooth'});} });
     });
 
-    const observer = new IntersectionObserver(entries=>{
-      entries.forEach(entry=>{
-        if(entry.isIntersecting){
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
+    // Apparition douce des sections
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const io = new IntersectionObserver(entries=>{
+      entries.forEach(en=>{ if(en.isIntersecting){ en.target.classList.add('visible'); io.unobserve(en.target);} });
     },{threshold:0.1});
+    document.querySelectorAll('.section, .hero').forEach(sec=>{ if(!reduce){ sec.classList.add('hidden'); io.observe(sec);} });
 
-    document.querySelectorAll('.section, .hero').forEach(sec=>{
-      sec.classList.add('hidden');
-      observer.observe(sec);
+    // Barre de progression de scroll
+    const progress = document.getElementById('progress');
+    const setProgress = ()=>{
+      const h = document.documentElement;
+      const scrolled = (h.scrollTop)/(h.scrollHeight - h.clientHeight);
+      progress.style.width = (scrolled*100) + '%';
+    };
+    document.addEventListener('scroll', setProgress, {passive:true});
+    setProgress();
+
+    // Curseur personnalisé + magnétique (version subtile)
+    const body = document.body;
+    const dot = document.getElementById('cDot');
+    const ring = document.getElementById('cRing');
+    let mx=window.innerWidth/2, my=window.innerHeight/2; // mouse
+    let dx=mx, dy=my; // dot position
+
+    const isCoarse = window.matchMedia('(pointer: coarse)').matches;
+    if(!isCoarse){ body.classList.add('use-cursor'); }
+
+    window.addEventListener('mousemove', (e)=>{ mx=e.clientX; my=e.clientY; });
+
+    function raf(){
+      dx += (mx - dx) * 0.20; // easing un peu plus réactif
+      dy += (my - dy) * 0.20;
+      dot.style.transform = `translate(${dx-2}px, ${dy-2}px)`;
+      ring.style.transform = `translate(${dx-11}px, ${dy-11}px) scale(${ringScale})`;
+      requestAnimationFrame(raf);
+    }
+
+    let ringScale = 1;
+    requestAnimationFrame(raf);
+
+    const interactive = document.querySelectorAll('[data-interactive]');
+    interactive.forEach(el=>{
+      el.addEventListener('mouseenter',()=>{ body.classList.add('cursor-active'); ringScale = 1.12; });
+      el.addEventListener('mouseleave',()=>{ body.classList.remove('cursor-active'); ringScale = 1; el.style.transform=''; });
+      el.addEventListener('mousemove',(e)=>{
+        const r = el.getBoundingClientRect();
+        const relX = e.clientX - r.left - r.width/2;
+        const relY = e.clientY - r.top - r.height/2;
+        const damp = 28; // plus grand = moins de déplacement
+        el.style.transform = `translate(${relX/damp}px, ${relY/damp}px)`;
+      });
     });
+
+    // Parallaxe/tilt très léger sur le nom central
+    const heroName = document.getElementById('heroName');
+    const hero = document.querySelector('.hero');
+    if(hero && heroName && !reduce){
+      hero.addEventListener('mousemove',(e)=>{
+        const r = hero.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width - .5;
+        const y = (e.clientY - r.top) / r.height - .5;
+        const maxTilt = 4; // degrés (pro)
+        heroName.style.transform = `rotateX(${(-y*maxTilt).toFixed(2)}deg) rotateY(${(x*maxTilt).toFixed(2)}deg)`;
+      });
+      hero.addEventListener('mouseleave',()=>{ heroName.style.transform=''; });
+    }
   </script>
 </body>
 </html>
